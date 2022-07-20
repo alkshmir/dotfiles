@@ -79,3 +79,5 @@ set hlsearch
 
 " Esc の2回押しでハイライト消去
 nnoremap <silent> <Esc><Esc> :nohlsearch<CR><Esc>
+
+set belloff=all
