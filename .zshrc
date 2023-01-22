@@ -217,3 +217,8 @@ eval "$(pyenv init -)"
 export PATH=$PATH:/usr/local/go/bin
 eval "$(starship init zsh)"
 
+# kubectl
+source <(kubectl completion zsh)
+alias k=kubectl
+compdef __start_kubectl k
+
