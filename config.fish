@@ -19,9 +19,15 @@ export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 
+#nodebrew
+export PATH="$HOME/.nodebrew/current/bin:$PATH"
+
 #peco setting
 set fish_plugins theme peco
 
 function fish_user_key_bindings
   bind \cw peco_select_history
 end
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/shira/Downloads/google-cloud-sdk/path.fish.inc' ]; . '/Users/shira/Downloads/google-cloud-sdk/path.fish.inc'; end
