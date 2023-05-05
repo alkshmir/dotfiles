@@ -19,6 +19,9 @@ export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 
+#rbenv
+status --is-interactive; and rbenv init - fish | source
+
 #nodebrew
 export PATH="$HOME/.nodebrew/current/bin:$PATH"
 
