@@ -1,0 +1,29 @@
+---
+
+- name: Install development tools
+  hosts: localhost
+
+  tasks:
+    - name: Install devtools
+      apt:
+        name:
+          - fish
+          - ripgrep
+          - bat
+          - htop
+        update_cache: true
+      become: true
+
+    - name: Check symlinks for bat
+      stat:
+        path: ~/.local/bin/bat
+      register: stat_result
+
+    - name: Make symlink for bat
+      shell: mkdir -p ~/.local/bin && ln -s /usr/bin/batcat ~/.local/bin
+      when: stat_result.stat.exists
+
+    - name: Set fish as a default shell
+      shell: chsh $(which fish)
+      become: true
+
