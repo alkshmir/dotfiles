@@ -2,6 +2,8 @@
 
 - name: Install development tools
   hosts: localhost
+  vars_files:
+    - vars.yml
 
   tasks:
     - name: Install devtools
@@ -18,6 +20,7 @@
           - rbenv
           - powerline
           - fonts-powerline
+          - ca-certificates
         update_cache: true
       become: true
 
@@ -79,4 +82,7 @@
 
     - name: Install gh
       import_tasks: gh.yml
+
+    - name: Install docker
+      import_tasks: docker.yml
 
