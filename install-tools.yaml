@@ -71,3 +71,6 @@
     - name: Install Go
       import_tasks: go.yml
 
+    - name: Install gh
+      import_tasks: gh.yml
+
