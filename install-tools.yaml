@@ -11,9 +11,16 @@
           - ripgrep
           - bat
           - htop
+          - vim
+          - curl
+          - wget
+          - git
+          - rbenv
+          - powerline
+          - fonts-powerline
         update_cache: true
       become: true
-
+    
     - name: Check symlinks for bat
       stat:
         path: ~/.local/bin/bat
@@ -24,6 +31,40 @@
       when: stat_result.stat.exists
 
     - name: Set fish as a default shell
-      shell: chsh $(which fish)
+      shell: chsh -s $(which fish) {{ ansible_facts['env']['USER'] }}
       become: true
+      register: result
+
+    #- name: Print all available facts
+    #  ansible.builtin.debug:
+    #    var: ansible_facts     
+
+    - name: Set fish config files
+      copy:
+        src: config.fish
+        dest: ~/.config/fish/config.fish
+        mode: '0644'
+
+    - name: Configure docker fish completion
+      ansible.builtin.get_url:
+        url: "{{ item.url }}"
+        dest: ~/.config/fish/completions/{{ item.dest }}
+      loop:
+        - url: https://raw.githubusercontent.com/docker/cli/refs/heads/master/contrib/completion/fish/docker.fish
+          dest: docker.fish
+        - url: https://raw.githubusercontent.com/docker/compose/master/contrib/completion/fish/docker-compose.fish
+          dest: docker-compose.fish
+
+    - name: Install fisher
+      ansible.builtin.get_url:
+        url: https://git.io/fisher
+        dest: ~/.config/fish/functions/fisher.fish
+
+    - name: Install fish plugins
+      shell: fish -c "fisher install {{ item }}"
+      loop:
+        - oh-my-fish/theme-bobthefish
+        - jethrokuan/z
+        - oh-my-fish/plugin-peco
+        - edc/bass
 

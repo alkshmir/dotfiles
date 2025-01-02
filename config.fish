@@ -1,6 +1,6 @@
-if status is-interactive
-    eval (/opt/homebrew/bin/brew shellenv) 
-end
+#if status is-interactive
+#    eval (/opt/homebrew/bin/brew shellenv) 
+#end
 
 #view
 set -g theme_display_date yes
