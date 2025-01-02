@@ -11,6 +11,7 @@ set -g theme_color_scheme dark
 #path
 set -x PATH $HOME/.nodebrew/current/bin $PATH
 set -x PATH $HOME/.local/bin $PATH
+set -x PATH /usr/local/go/bin $PATH
 
 #pyenv
 set -x PYENV_ROOT $HOME/.pyenv

@@ -68,3 +68,6 @@
         - oh-my-fish/plugin-peco
         - edc/bass
 
+    - name: Install Go
+      import_tasks: go.yml
+
