@@ -29,6 +29,19 @@
         block: |
           [core]
                   editor = vim
+          [init]
+                  defaultBranch = main
+
+    - name: Make ~/.config/git/
+      file:
+        path: ~/.config/git
+        state: directory
+
+    - name: Configure global gitignore
+      copy:
+        src: ignore
+        dest: ~/.config/git/ignore
+        mode: '0644'
 
     - name: Configure .vimrc
       copy:
