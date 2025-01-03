@@ -36,3 +36,7 @@ end
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/shira/Downloads/google-cloud-sdk/path.fish.inc' ]; . '/Users/shira/Downloads/google-cloud-sdk/path.fish.inc'; end
+
+# kubectl
+alias k kubectl
+

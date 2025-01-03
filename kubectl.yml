@@ -20,3 +20,9 @@
     update_cache: true
   become: true
 
+- name: Configure kubectl completion in fish
+  lineinfile:
+    path: ~/.config/fish/completions/kubectl.fish
+    line: kubectl completion fish | source
+    create: true
+
