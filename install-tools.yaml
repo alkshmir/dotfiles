@@ -1,7 +1,7 @@
 ---
 
 - name: Install development tools
-  hosts: localhost
+  hosts: devel
   vars_files:
     - vars.yml
     - versions.yml
@@ -27,6 +27,7 @@
     - name: Change git editor to vim
       blockinfile:
         path: ~/.gitconfig
+        create: true
         block: |
           [core]
                   editor = vim

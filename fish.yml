@@ -27,6 +27,15 @@
 #  ansible.builtin.debug:
 #    var: ansible_facts     
 
+- name: Make ~/.config/fish directory
+  file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+    - "~/.config/fish"
+    - "~/.config/fish/completions"
+    - "~/.config/fish/functions"
+
 - name: Set fish config files
   copy:
     src: config.fish
