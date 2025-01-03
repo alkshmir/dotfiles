@@ -25,3 +25,15 @@
     update_cache: true
   become: true
 
+- name: debug
+  debug:
+    var: "{{ ansible_facts['env']['USER'] }}"
+  become: true
+
+- name: Add current user to docker group
+  ansible.builtin.user:
+    name: "{{ ansible_facts['env']['USER'] }}"
+    append: true  # add the user to the group, without removing the other groups
+    groups: docker
+  become: true
+
