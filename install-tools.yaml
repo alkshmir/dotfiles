@@ -60,6 +60,9 @@
       shell: mkdir -p ~/.local/bin && ln -s /usr/bin/batcat ~/.local/bin/bat
       when: not stat_result.stat.exists
 
+    - name: Install pyenv
+      shell: curl https://pyenv.run | bash
+
     - name: Install fish
       import_tasks: fish.yml
 
