@@ -1,0 +1,58 @@
+---
+- name: Add opensuse build service keyring
+  get_url:
+    url: https://download.opensuse.org/repositories/shells:fish/Debian_12/Release.key
+    dest: /etc/apt/keyrings/shells-fish.asc
+  become: true
+
+- name: Add fish apt repository
+  apt_repository:
+    repo: deb [signed-by=/etc/apt/keyrings/shells-fish.asc] http://download.opensuse.org/repositories/shells:/fish/Debian_12/ /
+    state: present
+  become: true
+
+- name: Install fish
+  apt:
+    name: fish
+    state: present
+    update_cache: true
+  become: true
+
+- name: Set fish as a default shell
+  shell: chsh -s $(which fish) {{ ansible_facts['env']['USER'] }}
+  become: true
+  register: result
+
+#- name: Print all available facts
+#  ansible.builtin.debug:
+#    var: ansible_facts     
+
+- name: Set fish config files
+  copy:
+    src: config.fish
+    dest: ~/.config/fish/config.fish
+    mode: '0644'
+
+- name: Configure docker fish completion
+  ansible.builtin.get_url:
+    url: "{{ item.url }}"
+    dest: ~/.config/fish/completions/{{ item.dest }}
+  loop:
+    - url: https://raw.githubusercontent.com/docker/cli/refs/heads/master/contrib/completion/fish/docker.fish
+      dest: docker.fish
+    - url: https://raw.githubusercontent.com/docker/compose/master/contrib/completion/fish/docker-compose.fish
+      dest: docker-compose.fish
+
+- name: Install fisher
+  ansible.builtin.get_url:
+    url: https://git.io/fisher
+    dest: ~/.config/fish/functions/fisher.fish
+
+- name: Install fish plugins
+  shell: fish -c "fisher install {{ item }}"
+  loop:
+    - oh-my-fish/theme-bobthefish
+    - jethrokuan/z
+    - oh-my-fish/plugin-peco
+    - edc/bass
+
