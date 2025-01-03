@@ -2,7 +2,7 @@
 
 - name: Download kind binary
   get_url:
-    url: https://kind.sigs.k8s.io/dl/v0.26.0/kind-linux-{{ deb_architecture[ansible_architecture] }}
+    url: https://kind.sigs.k8s.io/dl/{{ versions.kind }}/kind-linux-{{ deb_architecture[ansible_architecture] }}
     dest: /usr/local/bin/kind
     mode: '0755'
   become: true

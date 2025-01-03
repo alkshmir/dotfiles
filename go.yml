@@ -1,17 +1,17 @@
 ---
 - name: Download Go
   ansible.builtin.get_url:
-    url: https://go.dev/dl/go1.23.4.linux-amd64.tar.gz
-    dest: ~/go1.23.4.linux-amd64.tar.gz
+    url: https://go.dev/dl/go{{ versions.go }}.linux-{{ deb_architecture[ansible_architecture] }}.tar.gz
+    dest: ~/go{{ versions.go }}.linux-amd64.tar.gz
   become: true
 
 - name: Install Go
-  shell: rm -rf /usr/local/go && tar -C /usr/local -xzf ~/go1.23.4.linux-amd64.tar.gz
+  shell: rm -rf /usr/local/go && tar -C /usr/local -xzf ~/go{{ versions.go }}.linux-{{ deb_architecture[ansible_architecture] }}.tar.gz
   become: true
 
 - name: Remove archive file
   file:
     state: absent
-    path: ~/go1.23.4.linux-amd64.tar.gz
+    path: ~/go{{ versions.go }}.linux-{{ deb_architecture[ansible_architecture] }}.tar.gz
   become: true
 
