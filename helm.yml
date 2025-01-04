@@ -1,0 +1,25 @@
+---
+- name: Download helm binary
+  get_url:
+    url: https://get.helm.sh/helm-{{ versions.helm }}-linux-{{ deb_architecture[ansible_architecture] }}.tar.gz
+    dest: /tmp/helm-{{ versions.helm }}-linux-{{ deb_architecture[ansible_architecture] }}.tar.gz
+
+- name: Extract helm archive
+  shell: tar -zxvf /tmp/helm-{{ versions.helm }}-linux-{{ deb_architecture[ansible_architecture] }}.tar.gz -C /tmp
+
+- name: Move helm binary
+  copy:
+    remote_src: true
+    src: /tmp/linux-{{ deb_architecture[ansible_architecture] }}/helm
+    dest: /usr/local/bin/helm
+    mode: '0755'
+  become: true
+
+- name: Helm | Delete archive
+  file:
+    state: absent
+    path: "{{ item }}"
+  loop:
+    - /tmp/linux-{{ deb_architecture[ansible_architecture] }}
+    - /tmp/helm-{{ versions.helm }}-linux-{{ deb_architecture[ansible_architecture] }}.tar.gz
+

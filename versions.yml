@@ -5,4 +5,5 @@ versions:
   go: "1.23.4"
   kind: "v0.26.0"
   kubernetes: "v1.32"
+  helm: "v3.16.4"
 
